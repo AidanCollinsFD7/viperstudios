@@ -1,5 +1,468 @@
-A: 185.199.108.153
-     A: 185.199.109.153
-     A: 185.199.110.153
-     A: 185.199.111.153
-     CNAME: www → yourusername.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viper Studios — Sports Agent</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #2dbd6e;
+      --green-dark: #1a7d47;
+      --bg:         #07191a;
+      --bg-card:    #0d2426;
+      --bg-card2:   #112b2e;
+      --text:       #ffffff;
+      --text-muted: #7eaab0;
+      --border:     rgba(255,255,255,0.08);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(7,25,26,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; color: var(--text); }
+    .logo span { color: var(--green); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(45,189,110,0.15);
+      color: var(--green);
+      border: 1px solid rgba(45,189,110,0.3);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 span { color: var(--green); }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--green);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      padding: 0.85rem 2.2rem;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #38d67d; transform: translateY(-1px); }
+
+    /* SCREENSHOTS */
+    .screenshots {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      padding: 3rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+    .screenshot-frame { flex: 0 0 auto; width: 220px; }
+    .screenshot-frame img {
+      width: 100%;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      display: block;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .screenshot-frame p {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.6rem;
+    }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0 2rem; }
+
+    /* SECTIONS */
+    .section { padding: 3.5rem 2rem; max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.6rem;
+    }
+    .section h2 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 700; margin-bottom: 1rem; }
+    .section > p { color: var(--text-muted); font-size: 1rem; max-width: 560px; }
+
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin-top: 2rem;
+    }
+    .feature {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.3rem;
+    }
+    .feature-icon {
+      width: 36px; height: 36px;
+      background: rgba(45,189,110,0.12);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+    .feature h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .feature p  { font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* RANKS */
+    .ranks { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.5rem; }
+    .rank-pill {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.55rem 1rem;
+      font-size: 0.85rem;
+    }
+    .rank-pill .div  { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 1px; }
+    .rank-pill .name { font-weight: 600; }
+
+    /* FAQ */
+    .faq { margin-top: 2rem; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.2rem 1.4rem;
+    }
+    .faq-item h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .faq-item p  { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+    .faq-item ul { margin: 0.4rem 0 0 1.1rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
+
+    /* SUPPORT CONTACT CARD */
+    .support-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .support-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .support-card p  { font-size: 0.9rem; color: var(--text-muted); }
+    .email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .email-link:hover { background: #38d67d; }
+
+    /* PRIVACY POLICY */
+    .policy-body { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.8rem; }
+    .policy-block h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+    .policy-block p  { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+    .policy-block ul { margin: 0.4rem 0 0 1.2rem; font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; }
+    .policy-block a  { color: var(--green); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    footer a { color: var(--text-muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero { padding: 3rem 1.5rem 2rem; }
+      .screenshots { padding: 2rem 1.5rem; }
+      .section { padding: 2.5rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="#"><span>Viper</span> Studios</a>
+    <ul class="nav-links">
+      <li><a href="#games">Games</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#support">Support</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Available on iOS</div>
+    <h1>Become a <span>Sports Agent</span></h1>
+    <p>Buy low, sell high, and build a legendary career in the transfer market. Can you go from the Bootroom to the top?</p>
+    <a href="https://apps.apple.com" class="btn-primary">Download on the App Store</a>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <div class="screenshots" id="games">
+    <div class="screenshot-frame">
+      <img src="images/screenshot1.png" alt="Sports Agent main menu showing career rank and stats">
+      <p>Career &amp; rankings</p>
+    </div>
+    <div class="screenshot-frame">
+      <img src="images/screenshot2.png" alt="Live transfer market gameplay with players on pitch">
+      <p>Live transfer market</p>
+    </div>
+    <div class="screenshot-frame">
+      <img src="images/screenshot3.png" alt="Transfer market gameplay with rising player values">
+      <p>Read the market</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-label">About the game</div>
+    <h2>Sports Agent</h2>
+    <p>A fast-paced trading game set in the professional transfer market. Sign players, watch their values rise and fall, and sell at the right moment to maximise profit. Every game builds your career total — rise through 7 divisions from Bootroom to Legend.</p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <h3>Live market</h3>
+        <p>Player values change in real time. Buy when the badge turns green, sell before it goes red.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏆</div>
+        <h3>Career rankings</h3>
+        <p>Every pound earned adds to your career total. Rise through 7 divisions and earn your Legend status.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚽</div>
+        <h3>Multiple sports</h3>
+        <p>Play across Football, Rugby, and American Football with unique stadium designs.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📱</div>
+        <h3>Built for iPhone</h3>
+        <p>Designed for one-handed play. Fast sessions, big decisions.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 2.5rem;">
+      <div class="section-label">Career divisions</div>
+      <div class="ranks">
+        <div class="rank-pill"><div class="div">DIV 7</div><div class="name" style="color:#888">Bootroom</div></div>
+        <div class="rank-pill"><div class="div">DIV 6</div><div class="name" style="color:#9c7a38">Park Scout</div></div>
+        <div class="rank-pill"><div class="div">DIV 5</div><div class="name" style="color:#3a8c3a">Non-League</div></div>
+        <div class="rank-pill"><div class="div">DIV 4</div><div class="name" style="color:#1a7ab8">Championship</div></div>
+        <div class="rank-pill"><div class="div">DIV 3</div><div class="name" style="color:#8e22b0">Premier</div></div>
+        <div class="rank-pill"><div class="div">DIV 2</div><div class="name" style="color:#c49010">Director</div></div>
+        <div class="rank-pill"><div class="div">DIV 1</div><div class="name" style="color:#f5d030">Legend</div></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SUPPORT -->
+  <section class="section" id="support">
+    <div class="section-label">Help &amp; support</div>
+    <h2>Support</h2>
+    <p>Thanks for playing Sports Agent. If you need help or want to report an issue, we're here.</p>
+
+    <div class="faq">
+      <div class="faq-item">
+        <h3>How do I play?</h3>
+        <p>Tap a player to sign them. Watch their value rise and sell before they peak. You have 200 weeks — roughly two minutes — to make as much money as possible.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What do the symbols mean?</h3>
+        <ul>
+          <li>⭐ <strong>STAR?</strong> — This player is likely to rise significantly. Sign early and hold your nerve.</li>
+          <li>⚠️ <strong>TROUBLE?</strong> — High risk. Could boom, could bust. Mostly dangerous.</li>
+          <li>🎲 <strong>GAMBLE!</strong> — Genuinely 50/50. Could recover a falling player or accelerate the drop.</li>
+        </ul>
+      </div>
+      <div class="faq-item">
+        <h3>How is my score ranked?</h3>
+        <p>Your profit at the end of each game adds to your career total and earns you an Agent Rank — from Bootroom all the way up to Transfer Window Legend.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I change sport?</h3>
+        <p>Yes — tap the menu button (☰) during a game and select Football or Rugby.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I turn sound off?</h3>
+        <p>Tap the menu button (☰) during a game. Sound On/Off is in that menu.</p>
+      </div>
+      <div class="faq-item">
+        <h3>The app crashed / something isn't working</h3>
+        <p>Please email us with a description of what happened and what device you're using. We'll get back to you as quickly as we can.</p>
+      </div>
+    </div>
+
+    <div class="support-card">
+      <div>
+        <h3>Contact us</h3>
+        <p>We aim to respond within 2 business days.</p>
+      </div>
+      <a class="email-link" href="mailto:aidancollins@viperstudios.xyz">
+        ✉ aidancollins@viperstudios.xyz
+      </a>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PRIVACY POLICY -->
+  <section class="section" id="privacy">
+    <div class="section-label">Legal</div>
+    <h2>Privacy Policy</h2>
+    <p style="color: var(--text-muted); font-size: 0.9rem;">Last updated: June 2025</p>
+
+    <div class="policy-body">
+      <div class="policy-block">
+        <p>Sports Agent is developed by Aidan Collins ("we", "us", "our"). This policy explains how we handle information when you use our app.</p>
+      </div>
+
+      <div class="policy-block">
+        <h3>What we collect</h3>
+        <p>We use Firebase Analytics (provided by Google) to collect anonymous usage data, including:</p>
+        <ul>
+          <li>How the app is used (screens visited, games played, features tapped)</li>
+          <li>General performance data (session length, errors)</li>
+          <li>A non-identifiable device identifier</li>
+        </ul>
+        <p style="margin-top: 0.6rem;">This data does not include your name, email address, location, contacts, or any personal information. It cannot be used to identify you personally.</p>
+      </div>
+
+      <div class="policy-block">
+        <h3>What we don't collect</h3>
+        <ul>
+          <li>Your name or contact details</li>
+          <li>Your location</li>
+          <li>Payment information</li>
+          <li>Health or fitness data</li>
+          <li>Any data from your contacts or messages</li>
+        </ul>
+      </div>
+
+      <div class="policy-block">
+        <h3>How we use it</h3>
+        <p>Usage data is used solely to understand how the app is used and to improve the game experience. We do not sell, share, or use it for advertising.</p>
+      </div>
+
+      <div class="policy-block">
+        <h3>Data storage</h3>
+        <p>Game preferences (sound settings, chosen sport theme, high scores) are stored locally on your device only. They are never transmitted to us or any third party.</p>
+      </div>
+
+      <div class="policy-block">
+        <h3>Third parties</h3>
+        <p>We use Firebase Analytics by Google. You can review Google's privacy policy at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+      </div>
+
+      <div class="policy-block">
+        <h3>Children</h3>
+        <p>Sports Agent does not knowingly collect data from children under 13.</p>
+      </div>
+
+      <div class="policy-block">
+        <h3>Contact</h3>
+        <p>If you have any questions about this policy, contact us at: <a href="mailto:aidancollins@viperstudios.xyz">aidancollins@viperstudios.xyz</a></p>
+      </div>
+
+      <div class="policy-block">
+        <h3>Changes</h3>
+        <p>We may update this policy from time to time. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2025 Viper Studios. All rights reserved.</span>
+    <div style="display:flex; gap:1.5rem; flex-wrap: wrap;">
+      <a href="#support">Support</a>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="mailto:aidancollins@viperstudios.xyz">aidancollins@viperstudios.xyz</a>
+    </div>
+  </footer>
+
+</body>
+</html>
